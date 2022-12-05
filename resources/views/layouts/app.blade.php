@@ -14,7 +14,10 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
+    @vite(['public/assets/css/bootstrap.min.css'])
+
+    @livewireStyles
 </head>
 <body>
     <div id="app">
@@ -76,5 +79,10 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Scripts -->
+    @vite(['public/assets/js/bootstrap.bundle.min.js', 'public/assets/js/jquery-3.6.1.min.js'])
+
+    @livewireStyles
 </body>
 </html>
