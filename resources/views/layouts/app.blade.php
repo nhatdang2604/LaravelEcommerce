@@ -83,6 +83,6 @@
     <!-- Scripts -->
     @vite(['public/assets/js/bootstrap.bundle.min.js', 'public/assets/js/jquery-3.6.1.min.js'])
 
-    @livewireStyles
+    @livewireScripts
 </body>
 </html>

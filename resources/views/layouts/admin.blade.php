@@ -39,7 +39,7 @@
 
         </div>
     </div>
-    
+
     <!-- plugins:js -->
     <script src="{{ asset('admin/vendors/base/vendor.bundle.base.js') }}"></script>
     <!-- endinject -->
@@ -58,6 +58,7 @@
     <script src="{{ asset('admin/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('admin/js/dataTables.bootstrap4.js') }}"></script>
 
-@livewireStyles
+    @livewireScripts
+    @stack('script')
 </body>
 </html>
