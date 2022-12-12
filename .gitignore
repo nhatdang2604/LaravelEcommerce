@@ -566,7 +566,7 @@ __pycache__/
 # should be stored in the .pubxml.user file.
 
 #images upload folder
-public/uploads
+public/uploads/
 
 
 # End of https://www.gitignore.io/api/vim,node,linux,macos,windows,laravel,intellij,sublimetext,visualstudio,visualstudiocode,composer
