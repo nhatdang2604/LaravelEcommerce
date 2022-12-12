@@ -12,6 +12,14 @@
 
         <div class="card-body">
 
+            @if ($errors->any())
+                <div class="alert alert-warning">
+                    @foreach($errors->all() as $error)
+                        <div>{{$error}}</div>
+                    @endforeach
+                </div>
+            @endif
+
             <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -43,12 +51,12 @@
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3 show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                         <div class="mb-3">
                             <label>Category</label>
-                            <select name="category" class="form-control">
+                            <select name="category-id" class="form-control">
                                 @foreach ($categories as $category)
-                                    <option value="{{category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -67,25 +75,23 @@
                             <label>Brands</label>
                             <select name="brand" class="form-control">
                                 @foreach ($brands as $brand)
-                                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                    <option value="{{$brand}}">{{$brand->name}}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label>Small description (500 words)</label>
-                            <textarea name="small-description" class="form-control" rows="4">
-                            </textarea>
+                            <textarea name="small-description" class="form-control" rows="4"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label>Description</label>
-                            <textarea name="description" class="form-control" rows="4">
-                            </textarea>
+                            <textarea name="description" class="form-control" rows="4"></textarea>
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="seotag-tab-pane" role="tabpanel" aria-labelledby="seotag-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3" id="seotag-tab-pane" role="tabpanel" aria-labelledby="seotag-tab" tabindex="0">
                         <div class="mb-3">
                             <label>Meta title</label>
                             <input type="text" name="meta-title" class="form-control"/>
@@ -94,19 +100,17 @@
 
                         <div class="mb-3">
                             <label>Meta description</label>
-                            <textarea name="meta-description" class="form-control" rows="4">
-                            </textarea>
+                            <textarea name="meta-description" class="form-control" rows="4"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label>Meta keyword</label>
-                            <textarea name="meta-keyword" class="form-control" rows="4">
-                            </textarea>
+                            <textarea name="meta-keyword" class="form-control" rows="4"></textarea>
                         </div>
 
                     </div>
 
-                    <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
@@ -131,7 +135,7 @@
 
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label>Tredning</label>
+                                    <label>Trending</label>
                                     <input type="checkbox" name="trending" style="width: 50px; height: 50px;"/>
                                 </div>
                             </div>
@@ -145,10 +149,10 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
                         <div class="mb3">
                             <label>Upload product image</label>
-                            <input type="file" name="image" multiple class="form-control"/>
+                            <input type="file" name="image[]" multiple class="form-control"/>
                         </div>
                     </div>
                 </div>
