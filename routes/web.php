@@ -44,6 +44,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::put('/products/{product}', 'update');
     });
 
+    //Color routes
+    Route::controller(App\Http\Controllers\Admin\ColorController::class)->group(function () {
+        Route::get('/colors', 'index');
+        Route::get('/colors/create', 'create');
+        Route::post('/colors/create', 'store');
+
+    });
+
     Route::get('/brands', App\Http\Livewire\Admin\Brand\Index::class);
 
 });
