@@ -42,4 +42,11 @@ class ColorController extends Controller
 
         return redirect('admin/colors')->with('message', 'Color Updated Successfully');
     }
+
+    public function destroy(int $color_id) {
+        $color = Color::findOrFail($color_id);
+        $color->delete();
+        return redirect('admin/colors')->with('message', 'Color Deleted Successfully');
+
+    }
 }
