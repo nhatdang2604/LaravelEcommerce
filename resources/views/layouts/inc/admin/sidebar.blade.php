@@ -58,7 +58,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" data-bs-toggle="collapse" href="{{url('admin/sliders')}}" aria-expanded="false" aria-controls="auth">
               <i class="mdi mdi-account menu-icon"></i>
               <span class="menu-title">Home Sliders</span>
               <i class="menu-arrow"></i>
