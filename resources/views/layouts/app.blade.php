@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> @yield('title') </title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -15,7 +15,10 @@
 
     <!-- Scripts -->
     <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
-    @vite(['public/assets/css/bootstrap.min.css'])
+    @vite([
+        'public/assets/css/bootstrap.min.css',
+        'public/assets/css/custom.css',
+    ])
 
     @livewireStyles
 </head>
