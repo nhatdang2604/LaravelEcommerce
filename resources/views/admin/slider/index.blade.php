@@ -40,8 +40,13 @@
                         </td>
                         <td>{{$slider->status == '0'?'Visble':'Hidden'}}</td>
                         <td>
-                            <a href="#" class="btn btn-success btn-sm">Edit</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ url("admin/sliders/".$slider->id."/edit")}}" class="btn btn-success btn-sm">Edit</a>
+                            <a
+                                href="{{ url("admin/sliders/".$slider->id."/delete")}}"
+                                onClick="return confirm('Are you sure you want to delete this slider');"
+                                class="btn btn-danger btn-sm">
+                                    Delete
+                            </a>
                         </td>
                     </tr>
                     @empty
