@@ -50,7 +50,7 @@
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">
+                        <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab" aria-controls="color-tab-pane" aria-selected="false">
                             Product Color
                         </button>
                     </li>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade border p-3" id="color-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3" id="color-tab-pane" role="tabpanel" aria-labelledby="color-tab" tabindex="0">
                         <div class="mb3">
                             <label>Select color</label>
                             <hr/>
@@ -173,7 +173,7 @@
                                             Color: <input type="checkbox" name="colors[{{$color->id}}]" value="{{ $color->id }}"/>
                                             {{$color->name}}
                                             <br/>
-                                            Quantity: <input type="number" name="quantity[]" style="width:70px; border:1px"/>
+                                            Quantity: <input type="number" name="color_quantity[{{$color->id}}]" style="width:70px; border:1px"/>
                                         </div>
                                     </div>
                                 @empty
