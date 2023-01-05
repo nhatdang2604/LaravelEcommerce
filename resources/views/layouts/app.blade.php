@@ -81,7 +81,7 @@
 
         @include('layouts.inc.frontend.navbar')
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

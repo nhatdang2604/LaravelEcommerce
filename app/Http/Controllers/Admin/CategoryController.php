@@ -11,6 +11,9 @@ use App\Http\Requests\CategoryFormRequest;
 
 class CategoryController extends Controller
 {
+
+    private const UPLOAD_PATH = "uploads/category";
+
     public function index() {
         return view("admin.category.index");
     }
@@ -31,9 +34,10 @@ class CategoryController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
+            $filepath = CategoryController::UPLOAD_PATH.'/'.$filename;
 
             $file->move('uploads/category', $filename);
-            $category->image = $filename;
+            $category->image = $filepath;
         }
 
         $category->meta_title = $validateData['meta-title'];
@@ -62,7 +66,7 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
 
-            $path = 'uploads/category/'.$category->image;
+            $path = CategoryController::UPLOAD_PATH.'/'.$category->image;
             if(File::exists($path)) {
                 File::delete($path);
             }

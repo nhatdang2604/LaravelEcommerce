@@ -22,7 +22,7 @@ class Index extends Component {
         $category = Category::find($this->category_id);
         $image = $category->image;
         if (null != $image) {
-            $path = 'uploads/category/'.$image;
+            $path = $image;
             if(File::exists($path)) {
                 File::delete($path);
             }
@@ -34,7 +34,7 @@ class Index extends Component {
 
     public function render()
     {
-        $categories = Category::orderBy('id','DESC')->paginate(2);
+        $categories = Category::orderBy('id','DESC')->paginate(5);
         return
             view('livewire.admin.category.index', ['categories' => $categories]);
     }
