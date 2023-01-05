@@ -8,9 +8,12 @@
 <div class="py-3 py-md-5 bg-light">
     <div class="container">
         <div class="row">
+
+            @if($categories->isNotEmpty())
             <div class="col-md-12">
                 <h4 class="mb-4">Our Categories</h4>
             </div>
+            @endif
 
             @forelse ($categories as $category)
 

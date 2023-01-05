@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Slider;
 use App\Models\Category;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,4 +22,19 @@ class FrontendController extends Controller
 
         return view('frontend.collections.category.index', compact('categories'));
     }
+
+    public function products($category_slug) {
+
+        $category = Category::where('slug', $category_slug)->first();
+
+        if($category) {
+            $products = $category->products()->with('productColors')->get();
+            return view('frontend.collections.products.index', compact('category', 'products'));
+        }
+
+        return redirect()->back();
+
+    }
 }
+
+
