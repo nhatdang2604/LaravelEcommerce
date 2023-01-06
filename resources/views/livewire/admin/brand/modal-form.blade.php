@@ -10,6 +10,20 @@
 
         <form wire:submit.prevent="storeBrand">
             <div class="modal-body">
+
+                <div class="mb-3">
+                    <label>Select Category</label>
+                    <select name="category_id" wire:model.defer="category_id" required class="form-control">
+                        <option value="">--Select Category--</option>
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id') <small class="text-danger">{{$message}}</small>
+
+                    @enderror
+                </div>
+
                 <div class="mb-3">
                     <label>Brand name</label>
                     <input type="text" wire:model.defer="name" class="form-control"/>
@@ -58,6 +72,20 @@
         <div wire:loading.remove>
             <form wire:submit.prevent="updateBrand">
                 <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label>Select Category</label>
+                        <select name="category_id" wire:model.defer="category_id" required class="form-control">
+                            <option value="">--Select Category--</option>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id') <small class="text-danger">{{$message}}</small>
+
+                        @enderror
+                    </div>
+
                     <div class="mb-3">
                         <label>Brand name</label>
                         <input type="text" wire:model.defer="name" class="form-control"/>
@@ -87,6 +115,7 @@
     </div>
 </div>
 
+<!-- Delete Brand Confirmation dialog -->
 <div wire:ignore.self class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
