@@ -18,13 +18,14 @@
     <div class="container">
         <div class="row">
 
-            @if($products->isNotEmpty())
+            @if($category->products->isNotEmpty())
             <div class="col-md-12">
                 <h4 class="mb-4">Our Products</h4>
             </div>
             @endif
 
-            <livewire:frontend.product.index :products="$products" :category="$category"/>
+            {{-- <livewire:frontend.product.index :products="$products" :category="$category"/> --}}
+            <livewire:frontend.product.index :category="$category"/>
         </div>
     </div>
 </div>
