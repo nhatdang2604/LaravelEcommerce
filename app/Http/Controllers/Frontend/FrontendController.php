@@ -51,9 +51,7 @@ class FrontendController extends Controller
                 ->first();
 
             if($product) {
-                return view(
-                    'frontend.collections.products.view',
-                    compact('category', 'product'));
+                return view('frontend.collections.products.view', compact('category', 'product'));
             }
         }
 

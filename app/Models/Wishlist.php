@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Color extends Model
+class Wishlist extends Model
 {
     use HasFactory;
 
-    protected $table = 'colors';
+    protected $table = 'wishlists';
 
     protected $fillable = [
-        'name',
-        'code',
-        'status',
+        'user_id',
+        'product_id',
     ];
 }

@@ -1,6 +1,15 @@
 <div>
     <div class="py-3 py-md-5">
         <div class="container">
+
+            <!--Error message, espeacially when the user is
+                not authorized for the Wishlist's feature-->
+            @if(session()->has('message'))
+                <div class="alert alert-info">
+                    {{session('message')}}
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-5 mt-3">
                     <div class="bg-white border">
@@ -84,7 +93,16 @@
                                 @endif
                             @endif
 
-                            <a href="" class="btn btn1"> <i class="fa fa-heart"></i> Add To Wishlist </a>
+                            <button type="button" wire:click="addToWishlist({{$product->id}})" class="btn btn1">
+
+                                <span wire:loading.remove>
+                                    <i class="fa fa-heart"></i> Add To Wishlist
+                                </span>
+
+                                <span wire:loading wire:target="addToWishlist">
+                                    Adding...
+                                </span>
+                            </button>
                         </div>
                         <div class="mt-3">
                             <h5 class="mb-0">Small Description</h5>
