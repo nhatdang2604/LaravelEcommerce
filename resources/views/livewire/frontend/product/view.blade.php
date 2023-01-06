@@ -16,11 +16,11 @@
                         <h4 class="product-name">
                             {{$product->name}}
 
-                            @if ($product->quantity > 0)
+                            {{-- @if ($product->quantity > 0)
                             <label class="label-stock bg-success">In Stock</label>
                             @else
                             <label class="label-stock bg-danger">Out Stock</label>
-                            @endif
+                            @endif --}}
                         </h4>
                         <hr>
                         <p class="product-path">
@@ -32,11 +32,36 @@
                         </div>
 
                         <div>
-                            @if ($product->productColors)
+
+                            <!--Decorate the "Instock/Out of stock" label if the
+                                product had different colors or not -->
+                            @if ($product->productColors->count() > 0)
                                 @foreach ($product->productColors as $productColor)
-                                    <input type="radio" name="colorSelection" value="{{$productColor->id}}"/> {{$productColor->Color->name}}
+                                    {{-- <input type="radio" name="colorSelection" value="{{$productColor->id}}"/> {{$productColor->Color->name}} --}}
+                                    <label class="colorSelectionLabel" style="background-color: {{$productColor->Color->code}};"
+                                        wire:click="colorSelected({{$productColor->id}})">
+                                        {{$productColor->Color->name}}
+                                    </label>
                                 @endforeach
+                                <br/>
+
+                                <div>
+                                    @if (-1 == $productColorSelectedQuantity)
+                                        <label class="label-stock bg-danger">Out of Stock</label>
+                                    @elseif ($productColorSelectedQuantity > 0)
+                                        <label class="label-stock bg-success">In Stock</label>
+                                    @endif
+                                </div>
+                            @else
+                                <div>
+                                    @if ($product->quantity > 0)
+                                        <label class="label-stock bg-success">In Stock</label>
+                                    @else
+                                        <label class="label-stock bg-danger">Out of Stock</label>
+                                    @endif
+                                </div>
                             @endif
+
                         </div>
 
                         <div class="mt-2">
@@ -48,9 +73,17 @@
                         </div>
                         <div class="mt-2">
 
-                            @if ($product->quantity > 0)
-                            <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                            <!--Hide and unhide the "Add to Cart button if the product is Instock/Out of Stock"-->
+                            @if ($product->productColors->count() > 0)
+                                @if (0 <= $productColorSelectedQuantity)
+                                    <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                                @endif
+                            @else
+                                @if ($product->quantity > 0)
+                                    <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                                @endif
                             @endif
+
                             <a href="" class="btn btn1"> <i class="fa fa-heart"></i> Add To Wishlist </a>
                         </div>
                         <div class="mt-3">

@@ -185,6 +185,17 @@
     box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
     float: right;
 }
+
+.product-view .label-stock{
+    font-size: 13px;
+    padding: 4px 13px;
+    margin-top: 5px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    float: left;
+}
+
 .product-view .product-path{
     font-size: 13px;
     font-weight: 500;

@@ -8,11 +8,26 @@ use Livewire\Component;
 class View extends Component
 {
 
-    public $product, $category;
+    public $product, $category, $productColorSelectedQuantity;
 
     public function mount($category, $product) {
         $this->product = $product;
         $this->category = $category;
+    }
+
+    public function colorSelected($productColorId) {
+
+        $productColor = $this
+            ->product
+            ->productColors
+            ->where('id', $productColorId)
+            ->first();
+
+        $this->productColorSelectedQuantity = $productColor->quantity;
+
+        if(0 >= $this->productColorSelectedQuantity) {
+            $this->productColorSelectedQuantity = -1;
+        }
     }
 
     public function render()
@@ -26,7 +41,8 @@ class View extends Component
         return view(
             'livewire.frontend.product.view', [
                 'product' => $this->product,
-                'category' => $this->category
+                'category' => $this->category,
+                'productColorSelectedQuantity' => $this->productColorSelectedQuantity,
             ]);
     }
 }
