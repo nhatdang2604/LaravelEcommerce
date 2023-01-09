@@ -123,6 +123,7 @@ class View extends Component
                 ]);
 
                 session()->flash('message', 'Product add to cart successfully');
+                $this->emit('cartAddedUpdated');
                 return true;
             }
         }
@@ -161,6 +162,7 @@ class View extends Component
         ]);
 
         session()->flash('message', 'Product add to cart successfully');
+        $this->emit('cartAddedUpdated');
         return true;
     }
 
