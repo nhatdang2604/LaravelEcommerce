@@ -29,6 +29,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Allow only for login user
 Route::middleware(['auth'])->group(function() {
     Route::get('/wishlist', [App\Http\Controllers\Frontend\WishlistController::class, 'index']);
+    Route::get('/cart', [App\Http\Controllers\Frontend\CartController::class, 'index']);
+
 });
 
 //ALlow only for admin

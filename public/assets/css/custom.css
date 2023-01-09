@@ -266,6 +266,11 @@
     font-weight: 600;
     padding: 4px 2px;
 }
+.shopping-cart .cart-item .color{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px 2px;
+}
 .shopping-cart .btn1{
     border: 1px solid;
     margin-right: 3px;
