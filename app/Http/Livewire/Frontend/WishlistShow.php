@@ -9,6 +9,7 @@ class WishlistShow extends Component {
 
     public function removeWishlistItem($wishlistId) {
         $user = auth()->user();
+        $this->emit('wishlistCountUpdated');
 
         //Predifined for the failed message
         $messageKey = 'message';

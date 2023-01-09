@@ -44,10 +44,14 @@ class View extends Component
             return false;
         }
 
+
         $wishlist = Wishlist::create([
             'user_id' => $userId,
             'product_id' => $productId,
         ]);
+
+        //Emit this event to update the Wishlist's count on the navbar
+        $this->emit("wishlistCountUpdated");
         session()->flash('message', 'Wishlist added successfully');
 
     }
