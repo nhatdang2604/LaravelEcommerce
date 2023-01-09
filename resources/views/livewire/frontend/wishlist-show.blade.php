@@ -5,7 +5,7 @@
                 <div class="col-md-12">
                     <div class="shopping-cart">
 
-                        @if (!empty($wishlist))
+                        @if (0 != $wishlist->count())
                             <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -20,7 +20,6 @@
                                 </div>
                             </div>
                         @endif
-
 
                         @forelse ($wishlist as $item)
                         <div class="cart-item">
@@ -41,9 +40,14 @@
 
                                 <div class="col-md-4 col-12 my-auto">
                                     <div class="remove">
-                                        <a href="" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i> Remove
-                                        </a>
+                                        <button type="button" wire:click="removeWishlistItem({{$item->id}})" class="btn btn-danger btn-sm">
+                                            <span wire:loading.remove wire:target="removeWishlistItem({{$item->id}})">
+                                                <i class="fa fa-trash"></i> Remove
+                                            </span>
+                                            <span wire:loading wire:target="removeWishlistItem({{$item->id}})">
+                                                <i class="fa fa-trash"></i> Removing...
+                                            </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
