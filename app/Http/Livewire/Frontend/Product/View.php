@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class View extends Component
 {
 
-    public $product, $category, $productColorSelectedQuantity;
+    public $product, $category, $productColorSelectedQuantity, $quantityCount = 0;
 
     public function mount($category, $product) {
         $this->product = $product;
@@ -54,6 +54,17 @@ class View extends Component
         $this->emit("wishlistCountUpdated");
         session()->flash('message', 'Wishlist added successfully');
 
+    }
+
+    public function decrementQuantity() {
+        if(1 == $this->quantityCount) {
+            return;
+        }
+        --$this->quantityCount;
+    }
+
+    public function incrementQuantity() {
+        ++$this->quantityCount;
     }
 
     public function render()
