@@ -85,11 +85,15 @@
                             <!--Hide and unhide the "Add to Cart button if the product is Instock/Out of Stock"-->
                             @if ($product->productColors->count() > 0)
                                 @if (0 <= $productColorSelectedQuantity)
-                                    <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                                    <button type="button" wire:click="addToCart({{$product->id}})" class="btn btn1">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </button>
                                 @endif
                             @else
                                 @if ($product->quantity > 0)
-                                    <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
+                                    <button type="button" wire:click="addToCart({{$product->id}})" class="btn btn1">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </button>
                                 @endif
                             @endif
 
@@ -129,3 +133,4 @@
         </div>
     </div>
 </div>
+

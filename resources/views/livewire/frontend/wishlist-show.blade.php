@@ -1,6 +1,15 @@
 <div>
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
+
+            <!--Error message, espeacially when the user is
+                not authorized for the Wishlist's feature-->
+                @if(session()->has('message'))
+                <div class="alert alert-info">
+                    {{session('message')}}
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="shopping-cart">
@@ -61,3 +70,4 @@
         </div>
     </div>
 </div>
+
