@@ -11,11 +11,19 @@ class CartShow extends Component
 
     public $cart;
     public $quantityMap; //holder the current quantity in the cart with format (cartId => quantity)
+    public $totalPrice;
 
     public function mount() {
         $this->quantityMap = array();
+        $this->totalPrice = 0;
+
         $userId = auth()->user()->id;
         $this->cart = Cart::with('product', 'productColor', 'productColor.Color')->where('user_id', $userId)->get();
+
+        //Calculate the total price
+        foreach($this->cart as $cart) {
+            $this->totalPrice += $cart->quantity * $cart->product->selling_price;
+        }
 
         //load the cartId with the quantity in the map
         foreach($this->cart as $item) {
@@ -28,11 +36,25 @@ class CartShow extends Component
             return;
         }
 
+        //Decrease the total price
+        $quantityPrice = $this->cart->first(function($value, $key) use($cartId) {
+            return $value->id == $cartId;
+        })->product->selling_price;
+        $this->totalPrice -= $quantityPrice;
+
+        //Decrease the quantity
         --$this->quantityMap[$cartId];
 
     }
 
     public function incrementQuantity(int $cartId) {
+
+        //Increase the total price
+        $quantityPrice = $this->cart->first(function($value, $key) use($cartId) {
+            return $value->id == $cartId;
+        })->product->selling_price;
+        $this->totalPrice += $quantityPrice;
+
         ++$this->quantityMap[$cartId];
     }
 
@@ -62,6 +84,13 @@ class CartShow extends Component
                 $product->quantity += $cartRemoved->quantity;
                 $product->save();
             }
+
+
+            //Update the total price
+            $cart = $this->cart->first(function($value, $key) use($cartId) {
+                return $value->id == $cartId;
+            });
+            $this->totalPrice -= $cart->product->selling_price * $cart->quantity;
 
             //Update the current cart which appeared in view
             //Remove the deleted cart from the view

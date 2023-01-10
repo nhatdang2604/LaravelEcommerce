@@ -91,6 +91,25 @@
                     </div>
                 </div>
             </div>
+
+            @if ($cart->count() > 0)
+            <div class="row">
+                <div class="col-md-8 my-md-auto mt-3">
+                    <h5>
+                        Get the best deals & Offers <a href="{{url('/collections')}}">shop now</a>
+                    </h5>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <div class="shadow-sm bg-white p-3">
+                        <h4> Total:
+                            <span class="float-end">${{$totalPrice}}</span>
+                        </h4>
+                        <hr>
+                        <a href="{{url('/checkout')}}" class="btn btn-warning w-100">Checkout</a>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
