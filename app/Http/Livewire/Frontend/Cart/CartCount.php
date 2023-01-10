@@ -12,21 +12,34 @@ class CartCount extends Component
     public $cartCounter;
 
     protected $listeners = [
-        'cartAddedUpdated' => 'checkCartCount',
+        'cartAddedUpdated' => 'increaseCartCount',
+        'cartRemovedUpdated' => 'decreaseCartCount',
     ];
 
-    public function checkCartCount() {
+    public function mount() {
         if(Auth::check()) {
             $userId = auth()->user()->id;
-            return $this->cartCounter = Cart::where('user_id', $userId)->count();
+            $this->cartCounter = Cart::where('user_id', $userId)->count();
+            return;
         }
 
-        return $this->cartCounter = 0;
+        $this->cartCounter = 0;
+    }
+
+    public function increaseCartCount() {
+        if(Auth::check()) {
+           ++$this->cartCounter;
+        }
+    }
+
+    public function decreaseCartCount() {
+        if(Auth::check()) {
+           --$this->cartCounter;
+        }
     }
 
     public function render()
     {
-        $this->cartCount = $this->checkCartCount();
         return view('livewire.frontend.cart.cart-count', [
             'cartCounter' => $this->cartCounter,
         ]);
