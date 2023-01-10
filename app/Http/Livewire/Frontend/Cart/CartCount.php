@@ -16,8 +16,8 @@ class CartCount extends Component
     ];
 
     public function checkCartCount() {
-        $userId = auth()->user()->id;
         if(Auth::check()) {
+            $userId = auth()->user()->id;
             return $this->cartCounter = Cart::where('user_id', $userId)->count();
         }
 
