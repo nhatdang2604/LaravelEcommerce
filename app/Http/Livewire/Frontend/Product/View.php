@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Wishlist;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class View extends Component
@@ -73,16 +74,29 @@ class View extends Component
 
     public function addToCart(int $productId) {
 
-
         //Check if the user is login
         if(!Auth::check()) {
             session()->flash('message', 'Please login to continue');
             return false;
         }
 
-        //Check if the given product is exists
-        //Get the latest product information, espeacially about the quantity
-        $this->product = Product::with('productColors')->where('id', $productId)->where('status', '0')->first();
+        //Using this approach to locking table
+        DB::transaction(function() use($productId) {
+            //Check if the given product is exists
+            //Get the latest product information, espeacially about the quantity
+            $this->product =
+                Product::with('productColors')
+                ->where('id', $productId)
+                ->where('status', '0')
+                ->lockForUpdate()
+                ->first();
+
+            $this->addToCartCore($productId);
+        });
+    }
+
+    private function addToCartCore(int $productId) {
+
         if(!$this->product) {
             session()->flash('message', 'Product does not exists');
             return false;

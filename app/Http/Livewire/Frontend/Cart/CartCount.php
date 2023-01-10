@@ -14,6 +14,7 @@ class CartCount extends Component
     protected $listeners = [
         'cartAddedUpdated' => 'increaseCartCount',
         'cartRemovedUpdated' => 'decreaseCartCount',
+        'cartClearUpdated' => 'clearCart',
     ];
 
     public function mount() {
@@ -24,6 +25,12 @@ class CartCount extends Component
         }
 
         $this->cartCounter = 0;
+    }
+
+    public function clearCart() {
+        if(Auth::check()) {
+            $this->cartCounter = 0;
+         }
     }
 
     public function increaseCartCount() {

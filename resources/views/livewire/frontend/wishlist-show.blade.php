@@ -4,7 +4,7 @@
 
             <!--Error message, espeacially when the user is
                 not authorized for the Wishlist's feature-->
-                @if(session()->has('message'))
+            @if(session()->has('message'))
                 <div class="alert alert-info">
                     {{session('message')}}
                 </div>
