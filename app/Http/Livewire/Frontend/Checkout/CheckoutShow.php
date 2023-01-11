@@ -79,6 +79,7 @@ class CheckoutShow extends Component
             $this->emit('cartClearUpdated');
 
             session()->flash('success-message', 'Order Place Successfully');
+            session()->flash('message', 'Order Place Successfully');
 
             return redirect()->to('thank-you');
         }
