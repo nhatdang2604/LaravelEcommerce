@@ -23,14 +23,21 @@ class OrderController extends Controller
     public function show($orderId) {
         $userId =  Auth::user()->id;
         $order =
-            Order::where('user_id', $userId)
+            Order::with(['orderItems', 'orderItems.product', 'orderItems.productColor', 'orderItems.productColor.Color'])
+            ->where('user_id', $userId)
             ->where('id', $orderId)
             ->first();
+
+        //Calculate total price
+        $totalPrice = 0;
+        foreach($order->orderItems as $item) {
+            $totalPrice += $item->price * $item->quantity;
+        }
 
         if(!$order) {
             return redirect()->back()->with('message', 'No Order Found');
         }
 
-        return view('frontend.orders.view', compact('order'));
+        return view('frontend.orders.view', compact('order', 'totalPrice'));
     }
 }
