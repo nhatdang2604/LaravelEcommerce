@@ -8,9 +8,9 @@
           </li>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/forms/basic_elements.html">
+          <a class="nav-link" href="{{url('admin/orders')}}">
             <i class="mdi mdi-view-headline menu-icon"></i>
-            <span class="menu-title">Sales</span>
+            <span class="menu-title">Orders</span>
           </a>
         </li>
           <li class="nav-item">
@@ -58,10 +58,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="{{url('admin/sliders')}}" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" href="{{url('admin/sliders')}}">
               <i class="mdi mdi-account menu-icon"></i>
               <span class="menu-title">Home Sliders</span>
-              <i class="menu-arrow"></i>
+              <i class="menu-title"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
