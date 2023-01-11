@@ -85,8 +85,6 @@ class CheckoutShow extends Component
         }
 
         session()->flash('failed-message', 'Something Went Wrong');
-
-        //TODO:
     }
 
     public function calculateTotalProductAmount(){
