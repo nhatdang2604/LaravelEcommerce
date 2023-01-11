@@ -8,6 +8,15 @@
                     {{session('message')}}
                 </div>
             @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="shopping-cart">
@@ -105,7 +114,7 @@
                             <span class="float-end">${{$totalPrice}}</span>
                         </h4>
                         <hr>
-                        <a href="{{url('/checkout')}}" class="btn btn-warning w-100">Checkout</a>
+                        <button type="button" wire:click="validateBeforeCheckout" class="btn btn-warning w-100">Checkout</button>
                     </div>
                 </div>
             </div>
