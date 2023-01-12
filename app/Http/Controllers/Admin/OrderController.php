@@ -28,8 +28,14 @@ class OrderController extends Controller
         return view('admin.orders.view', compact('order', 'totalPrice'));
     }
 
-    public function index() {
-        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+    public function index(Request $request) {
+        $orders = Order::when($request->status != "", function($query) use($request) {
+            return $query->where('status_message', $request->status);
+        })
+        -> when($request->date != null, function($query) use($request) {
+            return $query->whereDate('created_at', $request->date);
+        })
+        ->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 }
