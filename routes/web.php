@@ -24,6 +24,11 @@ Route::get('/collections', [App\Http\Controllers\Frontend\FrontendController::cl
 Route::get('/collections/{category_slug}', [App\Http\Controllers\Frontend\FrontendController::class, 'products']);
 Route::get('/collections/{category_slug}/{product_slug}', [App\Http\Controllers\Frontend\FrontendController::class, 'productView']);
 
+//For database query parallel
+Route::get('/test', [App\Http\Controllers\Frontend\TestController::class, 'index']);
+Route::get('/test2', [App\Http\Controllers\Frontend\TestController::class, 'index2']);
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Allow only for login user

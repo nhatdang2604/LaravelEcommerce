@@ -23,10 +23,11 @@
     {{-- @vite([
         'public/assets/css/bootstrap.min.css',
         'public/assets/css/custom.css',
-        // 'public/assets/css/owl.carousel.min.css',
-        // 'public/assets/css/owl.theme.default.min.css',
+        'public/assets/css/owl.carousel.min.css',
+        'public/assets/css/owl.theme.default.min.css',
     ]) --}}
 
+    <link rel="stylesheet" href="{{asset('assets/exzoom/jquery.exzoom.css')}}" >
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
@@ -100,16 +101,19 @@
 
     <!-- Scripts -->
     {{-- @vite([
-        // 'public/assets/js/owl.carousel.min.js',
+        'public/assets/js/owl.carousel.min.js',
         'public/assets/js/bootstrap.bundle.min.js',
-        // 'public/assets/js/jquery-3.6.1.min.js',
+        'public/assets/js/jquery-3.6.1.min.js',
     ]) --}}
 
     <script src="{{asset('assets/js/jquery-3.6.1.min.js')}}"></script>
     <script src="{{asset('assets/js/jbootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
+	<script src="{{asset('assets/exzoom/jquery.exzoom.js')}}"></script>
+
     @yield('script')
 
     @livewireScripts
+    @stack('scripts')
 </body>
 </html>

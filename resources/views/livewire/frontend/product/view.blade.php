@@ -5,18 +5,34 @@
             <!--Error message, espeacially when the user is
                 not authorized for the Wishlist's feature-->
             @if(session()->has('message'))
-                <div class="alert alert-info">
+                <div class="alert alert-info" wire:ignore>
                     {{session('message')}}
                 </div>
             @endif
 
             <div class="row">
                 <div class="col-md-5 mt-3">
-                    <div class="bg-white border">
+                    <div class="bg-white border" wire:ignore>
                         @if ($product->productImages)
-                        <img src="{{asset($product->productImages[0]->image)}}" class="w-100" alt="Img">
+                            {{-- <img src="{{asset($product->productImages[0]->image)}}" class="w-100" alt="Img"> --}}
+                            <div class="exzoom" id="exzoom">
+                                <!-- Images -->
+                                <div class="exzoom_img_box">
+                                  <ul class='exzoom_img_ul'>
+                                    @foreach ($product->productImages as $image)
+                                        <li><img src="{{asset($image->image)}}"/></li>
+                                    @endforeach
+                                  </ul>
+                                </div>
+                                <div class="exzoom_nav"></div>
+                                <!-- Nav Buttons -->
+                                <p class="exzoom_btn">
+                                    <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+                                    <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+                                </p>
+                            </div>
                         @else
-                        No Image Available
+                            No Image Available
                         @endif
                     </div>
                 </div>
@@ -134,3 +150,50 @@
     </div>
 </div>
 
+@push('scripts')
+    <script>
+        $(function(){
+
+            $("#exzoom").exzoom({
+
+            // thumbnail nav options
+            "navWidth": 60,
+            "navHeight": 60,
+            "navItemNum": 5,
+            "navItemMargin": 7,
+            "navBorder": 1,
+
+            // autoplay
+            "autoPlay": false,
+
+            // autoplay interval in milliseconds
+            "autoPlayTimeout": 2000
+
+            });
+
+        });
+    </script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 5000,
+            timerProgressBar:true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        window.addEventListener('alert',({detail:{type,message}})=>{
+            Toast.fire({
+                icon:type,
+                title:message
+            })
+        })
+    </script>
+@endpush

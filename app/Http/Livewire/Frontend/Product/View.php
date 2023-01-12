@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Frontend\Product;
 
+use App\Utilities\ToastUtils;
 use App\Models\Cart;
 use App\Models\Product;
 use Livewire\Component;
@@ -39,13 +40,15 @@ class View extends Component
 
     public function addToWishlist($productId) {
         if(!Auth::check()) {
-            session()->flash('message', 'Please login to continue');
+            // session()->flash('message', 'Please login to continue');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Please login to continue'));
             return false;
         }
 
         $userId = auth()->user()->id;
         if(Wishlist::where('user_id', $userId)->where('product_id', $productId)->exists()) {
-            session()->flash('message', 'Already added to wishlist');
+            // session()->flash('message', 'Already added to wishlist');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Already add to wishlist'));
             return false;
         }
 
@@ -57,8 +60,8 @@ class View extends Component
 
         //Emit this event to update the Wishlist's count on the navbar
         $this->emit("wishlistCountUpdated");
-        session()->flash('message', 'Wishlist added successfully');
-
+        // session()->flash('message', 'Wishlist added successfully');
+        $this->dispatchBrowserEvent('alert', ToastUtils::buildSuccessToast('Wishlist added successfully'));
     }
 
     public function decrementQuantity() {
@@ -76,7 +79,8 @@ class View extends Component
 
         //Check if the user is login
         if(!Auth::check()) {
-            session()->flash('message', 'Please login to continue');
+            // session()->flash('message', 'Please login to continue');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Please login to continue'));
             return false;
         }
 
@@ -92,19 +96,23 @@ class View extends Component
                 ->first();
 
             $this->addToCartCore($productId);
+
         });
+
     }
 
     private function addToCartCore(int $productId) {
 
         if(!$this->product) {
-            session()->flash('message', 'Product does not exists');
+            // session()->flash('message', 'Product does not exists');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Product does not exists'));
             return false;
         }
 
         //Check if the product's color is selected
         if(!$this->productColorId) {
-            session()->flash('message', "Please select the product's color");
+            // session()->flash('message', "Please select the product's color");
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast("Please select the product's color"));
             return false;
         }
 
@@ -112,7 +120,8 @@ class View extends Component
         //Case 1: The product have single color
         if(!$this->product->productColors) {
             if ($this->quantityCount > $this->product->quantity) {
-                session()->flash('message', 'There is no enough product to buy');
+                // session()->flash('message', 'There is no enough product to buy');
+                $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('There is no enough product to buy'));
                 return false;
             } else {
 
@@ -120,7 +129,8 @@ class View extends Component
 
                 //Check if in the cart, are there any the same item
                 if(Cart::where('user_id', $userId)->where('product_id', $this->product->id)->exists()) {
-                    session()->flash('message', 'Product already added');
+                    // session()->flash('message', 'Product already added');
+                    $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Product already added'));
                     return false;
                 }
 
@@ -136,7 +146,8 @@ class View extends Component
                     'quantity' => $this->quantityCount,
                 ]);
 
-                session()->flash('message', 'Product add to cart successfully');
+                // session()->flash('message', 'Product add to cart successfully');
+                $this->dispatchBrowserEvent('alert', ToastUtils::buildSuccessToast('Product add to cart successfully'));
                 $this->emit('cartAddedUpdated');
                 return true;
             }
@@ -148,7 +159,8 @@ class View extends Component
         });
 
         if($this->quantityCount > $selectedProductColor->quantity) {
-            session()->flash('message', 'There is no enough product to buy');
+            // session()->flash('message', 'There is no enough product to buy');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('There is no enough product to buy'));
             return false;
         }
 
@@ -158,7 +170,8 @@ class View extends Component
         //if enough quantity to buy
         //Check if in the cart, are there any the same item
         if(Cart::where('user_id', $userId)->where('product_id', $this->product->id)->where('product_color_id', $this->productColorId)->exists()) {
-            session()->flash('message', 'Product already added');
+            // session()->flash('message', 'Product already added');
+            $this->dispatchBrowserEvent('alert', ToastUtils::buildErrorToast('Product already added'));
             return false;
         }
 
@@ -175,7 +188,8 @@ class View extends Component
             'quantity' => $this->quantityCount,
         ]);
 
-        session()->flash('message', 'Product add to cart successfully');
+        // session()->flash('message', 'Product add to cart successfully');
+        $this->dispatchBrowserEvent('alert', ToastUtils::buildSuccessToast('Product add to cart successfully'));
         $this->emit('cartAddedUpdated');
         return true;
     }
