@@ -290,6 +290,13 @@
     text-align: center;
 }
 
+.underline {
+    height: 4px;
+    width: 100px;
+    background-color: #2874f0;
+    margin: 10px 0px;
+}
+
 /*Checkout*/
 .checkout .form-control{
     border-radius: 0px !important;

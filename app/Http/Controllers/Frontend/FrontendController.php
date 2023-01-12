@@ -7,13 +7,20 @@ use App\Models\Category;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class FrontendController extends Controller
 {
     public function index() {
 
         $sliders = Slider::where('status', '0')->get();
-        return view('frontend.index', compact('sliders'));
+        // $trendingProducts = Product::with('productImages', 'category')
+        //                         ->where('trending', '1')
+        //                         ->latest()
+        //                         ->take(15)
+        //                         ->get();
+        $trendingProducts = Product::all();
+        return view('frontend.index', compact('sliders', 'trendingProducts'));
     }
 
     public function categories() {

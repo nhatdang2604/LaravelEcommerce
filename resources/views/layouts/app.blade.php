@@ -19,11 +19,18 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Scripts -->
-    <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
-    @vite([
+    {{-- <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --> --}}
+    {{-- @vite([
         'public/assets/css/bootstrap.min.css',
         'public/assets/css/custom.css',
-    ])
+        // 'public/assets/css/owl.carousel.min.css',
+        // 'public/assets/css/owl.theme.default.min.css',
+    ]) --}}
+
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/owl.theme.default.min.css')}}">
 
     @livewireStyles
 </head>
@@ -92,7 +99,16 @@
     </div>
 
     <!-- Scripts -->
-    @vite(['public/assets/js/bootstrap.bundle.min.js', 'public/assets/js/jquery-3.6.1.min.js'])
+    {{-- @vite([
+        // 'public/assets/js/owl.carousel.min.js',
+        'public/assets/js/bootstrap.bundle.min.js',
+        // 'public/assets/js/jquery-3.6.1.min.js',
+    ]) --}}
+
+    <script src="{{asset('assets/js/jquery-3.6.1.min.js')}}"></script>
+    <script src="{{asset('assets/js/jbootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
+    @yield('script')
 
     @livewireScripts
 </body>
