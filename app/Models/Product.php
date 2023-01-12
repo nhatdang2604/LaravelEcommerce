@@ -23,6 +23,7 @@ class Product extends Model
         'selling_price',
         'quantity',
         'trending',
+        'feature',
         'status',
         'meta_title',
         'meta_keyword',

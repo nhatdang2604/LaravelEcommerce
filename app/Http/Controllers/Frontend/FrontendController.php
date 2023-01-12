@@ -65,10 +65,21 @@ class FrontendController extends Controller
     }
 
     public function newArrival(){
-        $newArrivalProducts = Product::latest()->take(16)->get();
+        $newArrivalProducts = Product::with(['productImages', 'category'])
+                                ->latest()
+                                ->take(16)
+                                ->get();
         return view('frontend.pages.new-arrival', compact('newArrivalProducts'));
     }
 
+    public function featuredProducts() {
+        $featuredProducts = Product::where('feature', '1')
+                                ->with(['productImages', 'category'])
+                                ->latest()
+                                ->take(16)
+                                ->get();
+        return view('frontend.pages.featured-products', compact('featuredProducts'));
+    }
 }
 
 
