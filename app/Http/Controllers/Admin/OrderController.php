@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -68,5 +70,39 @@ class OrderController extends Controller
             'totalPrice' => $totalPrice,
             'message' => "Order Status Updated",
         ]);
+    }
+
+    public function viewInvoice(int $orderId) {
+        $order = Order::with(['orderItems', 'orderItems.product', 'orderItems.productColor', 'orderItems.productColor.Color'])
+                ->findOrFail($orderId);
+
+        //Calculate total price
+        $totalPrice = 0;
+        foreach($order->orderItems as $item) {
+            $totalPrice += $item->price * $item->quantity;
+        }
+
+        return view('admin.invoice.generate-invoice', compact('order', 'totalPrice'));
+    }
+
+    public function generateInvoice(int $orderId) {
+        $order = Order::with(['orderItems', 'orderItems.product', 'orderItems.productColor', 'orderItems.productColor.Color'])
+                ->findOrFail($orderId);
+
+         //Calculate total price
+         $totalPrice = 0;
+         foreach($order->orderItems as $item) {
+             $totalPrice += $item->price * $item->quantity;
+         }
+
+        $data = [
+            'order' => $order,
+            'totalPrice' => $totalPrice,
+        ];
+
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
+        $todayDate = Carbon::now()->format('d-m-Y');
+
+        return $pdf->download('invoice-'.$order->id.'-'.$todayDate.'.pdf');
     }
 }
