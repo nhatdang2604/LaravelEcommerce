@@ -54,6 +54,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
 
     //Site setting
     Route::get('settings', [App\Http\Controllers\Admin\SettingController::class, 'index']);
+    Route::post('settings', [App\Http\Controllers\Admin\SettingController::class, 'store']);
 
     //Category routes
     Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {

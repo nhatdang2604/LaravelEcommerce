@@ -19,6 +19,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
     <!-- endinject -->
+    <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
 
     @livewireStyles
@@ -38,6 +39,8 @@
             </div>
 
         </div>
+
+        @include('layouts.inc.frontend.footer')
     </div>
 
     <!-- plugins:js -->
