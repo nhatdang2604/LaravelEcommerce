@@ -111,4 +111,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
 
     });
 
+    Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::get('/users/create', 'create');
+        Route::post('/users', 'store');
+        Route::get('/users/{userId}/edit', 'edit');
+        Route::put('/users/{userId}', 'update');
+        Route::get('/users/{userId}/delete', 'delete');
+
+    });
+
+
 });

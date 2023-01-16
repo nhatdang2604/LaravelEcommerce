@@ -52,7 +52,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="{{url('admin/users')}}">
               <i class="mdi mdi-emoticon menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
