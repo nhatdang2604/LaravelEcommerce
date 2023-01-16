@@ -13,7 +13,7 @@ class TestController extends Controller
     public $product;
     public function index() {
 
-        echo( date("Y-m-d H:i:s"));
+        echo( date("Y-m-d H:i:s").'<br/>');
         $productId = 27;
 
         $this->product =
@@ -22,7 +22,7 @@ class TestController extends Controller
             //->sharedLock()
             ->first();
 
-            echo( date("Y-m-d H:i:s"));
+            echo( date("Y-m-d H:i:s").'<br/>');
 
         dd('test');
 
@@ -30,7 +30,7 @@ class TestController extends Controller
     }
 
     public function index2() {
-        echo(date("Y-m-d H:i:s"));
+        echo(date("Y-m-d H:i:s").'<br/>');
 
         $productId = 27;
 
@@ -53,12 +53,14 @@ class TestController extends Controller
         //Get the latest product information, espeacially about the quantity
         $this->product =
             Product::where('id', $productId)
-            //->sharedLock()
             ->first();
 
-        echo( date("Y-m-d H:i:s"));
+        echo( date("Y-m-d H:i:s").'<br/>');
 
-        sleep(10);
+        $x = 0;
+        while ($x<1000000000) {++$x;}
+
+        echo($x);
         echo( date("Y-m-d H:i:s"));
         dd("test2");
         return $this->product;

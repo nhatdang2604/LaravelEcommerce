@@ -52,6 +52,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     //Dashboard
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
+    //Site setting
+    Route::get('settings', [App\Http\Controllers\Admin\SettingController::class, 'index']);
+
     //Category routes
     Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {
         Route::get('/category', 'index');
@@ -106,4 +109,5 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
 
     });
+
 });

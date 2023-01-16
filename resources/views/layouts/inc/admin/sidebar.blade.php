@@ -74,7 +74,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="documentation/documentation.html">
+            <a class="nav-link" href="{{url('admin/settings')}}">
               <i class="mdi mdi-file-document-box-outline menu-icon"></i>
               <span class="menu-title">Site Settings</span>
             </a>
