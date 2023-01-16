@@ -19,7 +19,23 @@ class FrontendController extends Controller
                                 ->latest()
                                 ->take(15)
                                 ->get();
-        return view('frontend.index', compact('sliders', 'trendingProducts'));
+
+        $newArrivalProducts = Product::with(['productImages', 'category'])
+                                ->latest()
+                                ->take(16)
+                                ->get();
+
+        $featuredProducts = Product::where('feature', '1')
+                                ->with(['productImages', 'category'])
+                                ->latest()
+                                ->take(14)
+                                ->get();
+
+        return view('frontend.index', compact(
+            'sliders',
+            'trendingProducts',
+            'newArrivalProducts',
+            'featuredProducts'));
     }
 
     public function categories() {
