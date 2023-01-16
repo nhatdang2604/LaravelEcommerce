@@ -96,6 +96,19 @@ class FrontendController extends Controller
                                 ->get();
         return view('frontend.pages.featured-products', compact('featuredProducts'));
     }
+
+    public function searchProducts(Request $request) {
+        if(!$request->search) {
+
+            return redirect()->back()->with('message', 'Empty Search');
+        }
+
+        $searchProducts =
+            Product::where('name', 'LIKE', '%'.$request->search.'%')
+            ->latest()
+            ->paginate(15);
+        return view('frontend.pages.search', compact('searchProducts'));
+    }
 }
 
 
