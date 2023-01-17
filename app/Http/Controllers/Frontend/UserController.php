@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -39,5 +40,31 @@ class UserController extends Controller
         );
 
         return redirect()->back()->with('message', 'User Profile Updated');
+    }
+
+    public function passwordCreate() {
+        return view('frontend.user.change-password');
+    }
+
+    public function changePassword(Request $request) {
+
+        $validatedData = $request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        //Check if the current password is match
+        $currentPasswordStatus = Hash::check($request->current_password, auth()->user()->password);
+        if (!$currentPasswordStatus) {
+            return redirect()->back()->with('message', 'Current Password does not match with Old Password');
+        }
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('message', 'Password Updated Successfully');
+
     }
 }
