@@ -62,7 +62,8 @@ class FrontendController extends Controller
     }
 
     public function productView(string $category_slug, string $product_slug) {
-        $category = Category::where('slug', $category_slug)->first();
+        $category = Category::with(['products', 'products.productImages'])
+                            ->where('slug', $category_slug)->first();
 
         if($category) {
 
@@ -109,6 +110,8 @@ class FrontendController extends Controller
             ->paginate(15);
         return view('frontend.pages.search', compact('searchProducts'));
     }
+
+
 }
 
 

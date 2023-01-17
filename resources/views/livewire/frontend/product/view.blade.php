@@ -147,6 +147,112 @@
                 </div>
             </div>
         </div>
+
+        <div class="py-3 py-md-5 bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <h3>Related{{$category?' '.$category->name.' ':''}}Products</h3>
+                        <div class="underline"></div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        @if ($category)
+                            <div class="owl-carousel owl-theme four-carousel">
+                                @foreach ($category->relatedProducts as $relatedProduct)
+                                    <div class="item mb-3">
+                                        <div class="product-card">
+                                            <div class="product-card-img">
+
+                                                @if($relatedProduct->productImages->count() > 0)
+                                                <a href="{{url('/collections/'.$category->slug.'/'.$relatedProduct->slug)}}">
+                                                    <img src="{{ asset($relatedProduct->productImages[0]->image)}}" alt="{{$relatedProduct->name}}"/>
+                                                </a>
+                                                @endif
+                                            </div>
+                                            <div class="product-card-body">
+                                                <p class="product-brand">{{$relatedProduct->brand}}</p>
+                                                <h5 class="product-name">
+                                                <a href="{{url('/collections/'.$category->slug.'/'.$relatedProduct->slug)}}">
+                                                        {{$relatedProduct->name}}
+                                                </a>
+                                                </h5>
+                                                <div>
+                                                    <span class="selling-price">${{$relatedProduct->selling_price}}</span>
+                                                    <span class="original-price">${{$relatedProduct->original_price}}</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="col-md-12 p-2">
+                                <h4>No Related Products Available</h4>
+                            </div>
+                        @endif
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-3 py-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <h3>Related{{$category?' '.$product->brand.' ':''}}Products</h3>
+                        <div class="underline"></div>
+
+                    </div>
+                    <div class="col-md-12">
+                        @if ($category)
+                            <div class="owl-carousel owl-theme four-carousel">
+                                @foreach ($category->relatedProducts as $relatedProduct)
+                                    @if($relatedProduct->brand == "$product->brand")
+                                        <div class="item mb-3">
+                                            <div class="product-card">
+                                                <div class="product-card-img">
+
+                                                    @if($relatedProduct->productImages->count() > 0)
+                                                    <a href="{{url('/collections/'.$category->slug.'/'.$relatedProduct->slug)}}">
+                                                        <img src="{{ asset($relatedProduct->productImages[0]->image)}}" alt="{{$relatedProduct->name}}"/>
+                                                    </a>
+                                                    @endif
+                                                </div>
+                                                <div class="product-card-body">
+                                                    <p class="product-brand">{{$relatedProduct->brand}}</p>
+                                                    <h5 class="product-name">
+                                                    <a href="{{url('/collections/'.$category->slug.'/'.$relatedProduct->slug)}}">
+                                                            {{$relatedProduct->name}}
+                                                    </a>
+                                                    </h5>
+                                                    <div>
+                                                        <span class="selling-price">${{$relatedProduct->selling_price}}</span>
+                                                        <span class="original-price">${{$relatedProduct->original_price}}</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="col-md-12 p-2">
+                                <h4>No Related Products Available</h4>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -194,6 +300,25 @@
                 icon:type,
                 title:message
             })
+        })
+    </script>
+
+    <script>
+        $('.four-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:4
+                }
+            }
         })
     </script>
 @endpush
