@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Frontend\Checkout;
 
+use Exception;
 use App\Models\Cart;
 use App\Models\Order;
 use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Support\Str;
+use App\Mail\PlaceOrderMailable;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutShow extends Component
 {
@@ -75,6 +78,16 @@ class CheckoutShow extends Component
             //Clear out the cart
             Cart::where('user_id', $userId)->delete();
 
+            try {
+                $order = Order::findOrFail($codOrder->id);
+                $this->calculateTotalProductAmount();
+
+                Mail::to("$order->email")->send(new PlaceOrderMailable($order, $this->totalProductAmount));
+
+            } catch (Exception $exception) {
+                dd($exception);
+            }
+
             //Set the Cart Counter (on the navigation bar) to 0
             $this->emit('cartClearUpdated');
 
@@ -102,6 +115,12 @@ class CheckoutShow extends Component
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
 
+        $userDetail = auth()->user()->userDetail;
+        if($userDetail) {
+            if($userDetail->phone) {$this->phone = $userDetail->phone;}
+            if($userDetail->pin_code) {$this->pincode = $userDetail->pin_code;}
+            if($userDetail->address) {$this->address = $userDetail->address;}
+        }
         $this->calculateTotalProductAmount();
         return view('livewire.frontend.checkout.checkout-show', [
             'totalProductAmount' => $this->totalProductAmount,
