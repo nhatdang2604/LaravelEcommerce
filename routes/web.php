@@ -97,6 +97,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
 
     });
 
+    //Slider routes
     Route::controller(App\Http\Controllers\Admin\SliderController::class)->group(function() {
         Route::get('/sliders', 'index');
         Route::get('/sliders/create', 'create');
@@ -106,8 +107,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::get('/sliders/{slider}/delete', 'destroy');
     });
 
+    //Brand routes
     Route::get('/brands', App\Http\Livewire\Admin\Brand\Index::class);
 
+    //Order routes
     Route::controller(App\Http\Controllers\Admin\OrderController::class)->group(function() {
         Route::get('/orders', 'index');
         Route::get('/orders/{orderId}', 'show');
@@ -115,9 +118,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
 
         Route::get('/invoice/{orderId}', 'viewInvoice');
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
-
+        Route::get('/invoice/{orderId}/mail', 'mailInvoice');
     });
 
+    //User routes
     Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');

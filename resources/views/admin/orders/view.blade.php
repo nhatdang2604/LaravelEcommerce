@@ -26,6 +26,8 @@
                             <a href="{{url('admin/orders')}}" class="btn btn-danger btn-sm float-end mx-1">Back</a>
                             <a href="{{url('admin/invoice/'.$order->id.'/generate')}}" class="btn btn-primary btn-sm float-end mx-1">Download Invoice</a>
                             <a href="{{url('admin/invoice/'.$order->id)}}" target="_blank" class="btn btn-warning btn-sm float-end mx-1">View Invoice</a>
+                            <a href="{{url('admin/invoice/'.$order->id.'/mail')}}" class="btn btn-info btn-sm float-end mx-1">Send Invoice via Mail</a>
+
                         </h4>
                         <hr/>
 
